@@ -73,8 +73,8 @@ public class CheckFunctionTag {
 		int count = 1;
 		//先匹配resource
 		String resource = (String)getResourceMethod.invoke(fun, null);
-		System.out.println("fun resource:"+resource);
-		System.out.println("req resource:"+getResourceFromReqUrl(reqUrl));
+		//System.out.println("fun resource:"+resource);
+		//System.out.println("req resource:"+getResourceFromReqUrl(reqUrl));
 		if(getResourceFromReqUrl(reqUrl).equals(resource)){
 			//resource匹配成功
 			count ++;
