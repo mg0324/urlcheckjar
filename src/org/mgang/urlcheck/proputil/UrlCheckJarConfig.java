@@ -11,7 +11,7 @@ import java.util.Properties;
 
 /**
  */
-public class PropAppConfig extends Properties {
+public class UrlCheckJarConfig extends Properties {
 
 	/**
 	 * 
@@ -20,11 +20,11 @@ public class PropAppConfig extends Properties {
 	/**
 	 * 配置文件地址
 	 */
-	private static final String FILE_PATH_KEY = "appconfig.properties";
-	private static PropAppConfig appcnfgProp = null;
+	private static final String FILE_PATH_KEY = "urlcheckjar.properties";
+	private static UrlCheckJarConfig appcnfgProp = null;
 	private static boolean inited = false;
 	
-	private PropAppConfig() {
+	private UrlCheckJarConfig() {
 		
 	};
 
@@ -33,16 +33,16 @@ public class PropAppConfig extends Properties {
 	 * @return
 	 * @throws IOException
 	 */
-	private static PropAppConfig getInstance(boolean forceload) {
+	private static UrlCheckJarConfig getInstance(boolean forceload) {
 		// 同步化操作，避免多个线程争用资源，同时初始化配置。
 		if (forceload ==true){
 			inited = false;
 		}
-		synchronized (PropAppConfig.class) {
+		synchronized (UrlCheckJarConfig.class) {
 			if (!inited) {
-				appcnfgProp = new PropAppConfig();
+				appcnfgProp = new UrlCheckJarConfig();
 				try {
-					URL url = PropAppConfig.class.getClassLoader()
+					URL url = UrlCheckJarConfig.class.getClassLoader()
 							.getResource(FILE_PATH_KEY);
 					File confFile = new File(url.toURI());
 					appcnfgProp.load(new FileInputStream(confFile));
@@ -98,6 +98,6 @@ public class PropAppConfig extends Properties {
 		return getInstance(true).getProperty(key);
 	}
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println(PropAppConfig.get("user_class"));
+		System.out.println(UrlCheckJarConfig.get("user_class"));
 	}
 }

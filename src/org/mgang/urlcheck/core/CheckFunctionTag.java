@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.mgang.urlcheck.proputil.PropAppConfig;
+import org.mgang.urlcheck.proputil.UrlCheckJarConfig;
 
 
 
@@ -26,9 +26,9 @@ public class CheckFunctionTag {
 		boolean haveFun = false;
 		Class userClass;
 		try {
-			userClass = Class.forName(PropAppConfig.get("user_class"));
+			userClass = Class.forName(UrlCheckJarConfig.get("user_class"));
 		
-			Class roleClass = Class.forName(PropAppConfig.get("role_class"));
+			Class roleClass = Class.forName(UrlCheckJarConfig.get("role_class"));
 			Method getRoleListMethod = userClass.getMethod("getRoleList", null);
 			Method getFunListMethod = roleClass.getMethod("getFunList", null);
 			
@@ -65,10 +65,10 @@ public class CheckFunctionTag {
 	 * @throws NoSuchMethodException 
 	 */
 	public static boolean matchFunctionByReqUrl(Object fun,String reqUrl) throws Exception{
-		Class functionClass = Class.forName(PropAppConfig.get("function_class"));
-		Method getResourceMethod = functionClass.getMethod(PropAppConfig.get("function_method_getResource"), null);
-		Method getStuffixMethod = functionClass.getMethod(PropAppConfig.get("function_method_getStuffix"), null);
-		Method getParamsMethod = functionClass.getMethod(PropAppConfig.get("function_method_getParams"), null);
+		Class functionClass = Class.forName(UrlCheckJarConfig.get("function_class"));
+		Method getResourceMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getResource"), null);
+		Method getStuffixMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getStuffix"), null);
+		Method getParamsMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getParams"), null);
 		boolean b = false;
 		int count = 1;
 		//先匹配resource
