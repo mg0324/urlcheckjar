@@ -78,20 +78,20 @@ public class CheckFunctionTag {
 		if(getResourceFromReqUrl(reqUrl).equals(resource)){
 			//resource匹配成功
 			count ++;
-			System.out.println(resource + "资源匹配成功");
+			//System.out.println(resource + "资源匹配成功");
 		}
 		//匹配后缀
 		if(count == 2){
 			String stuffix = (String)getStuffixMethod.invoke(fun, null);
-			System.out.println("fun stuffix:"+stuffix);
+			//System.out.println("fun stuffix:"+stuffix);
 			if(getStuffixFromReqUrl(reqUrl) == null){
 				count ++;
-				System.out.println(reqUrl+"无后缀");
+				//System.out.println(reqUrl+"无后缀");
 			}else{
 				if(getStuffixFromReqUrl(reqUrl).equals(stuffix)){
 					//匹配后缀成功
 					count ++;
-					System.out.println(stuffix + "后缀匹配成功");
+					//System.out.println(stuffix + "后缀匹配成功");
 				}
 			}
 		}
@@ -106,16 +106,16 @@ public class CheckFunctionTag {
 				//判断参数个数是否相同
 				String params_str = (String) getParamsMethod.invoke(fun, null);
 				String[] p_fun = params_str.split(",");
-				System.out.println("fun中的参数："+params_str);
-				System.out.println("reqUrl中的参数："+pReqUrl);
-				System.out.println("urlParamLen:"+urlParamLen);
+				//System.out.println("fun中的参数："+params_str);
+				//System.out.println("reqUrl中的参数："+pReqUrl);
+				//System.out.println("urlParamLen:"+urlParamLen);
 				if(p_fun.length == urlParamLen){
 					//得到reqUrl中的参数 和 fun中的匹配，精确匹配
 					int pcount = 0;
 					for(String p : p_fun){
 						pcount = findParamInStringArray(p, p_req_url,pcount);
 					}
-					System.out.println("pcount:"+pcount);
+					//System.out.println("pcount:"+pcount);
 					if(pcount == urlParamLen){
 						b = true;
 					}else{
@@ -129,7 +129,7 @@ public class CheckFunctionTag {
 			}
 		}
 		
-		System.out.println("count:"+count+"---b:"+b);
+		//System.out.println("count:"+count+"---b:"+b);
 		if(count == 3 && b){
 			return true;
 		}else{
