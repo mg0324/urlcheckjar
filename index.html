@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Urlcheckjar by mg0324</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Urlcheckjar</h1>
+      <h2 class="project-tagline">封装url权限匹配解决方案为通用的框架</h2>
+      <a href="https://github.com/mg0324/urlcheckjar" class="btn">View on GitHub</a>
+      <a href="https://github.com/mg0324/urlcheckjar/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mg0324/urlcheckjar/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="urlcheckjar" class="anchor" href="#urlcheckjar" aria-hidden="true"><span class="octicon octicon-link"></span></a>urlcheckjar</h1>
+
+<p>封装url权限匹配解决方案为通用的框架</p>
+
+<h3>
+<a id="0说明" class="anchor" href="#0%E8%AF%B4%E6%98%8E" aria-hidden="true"><span class="octicon octicon-link"></span></a>0.说明</h3>
+
+<p>该jar包可以完成url权限匹配，demo的urlcheck在<a href="http://mg0324.github.io/urlcheck/%E3%80%82">http://mg0324.github.io/urlcheck/。</a></p>
+
+<h3>
+<a id="1传入url格式定义" class="anchor" href="#1%E4%BC%A0%E5%85%A5url%E6%A0%BC%E5%BC%8F%E5%AE%9A%E4%B9%89" aria-hidden="true"><span class="octicon octicon-link"></span></a>1.传入url格式定义</h3>
+
+<p>资源.后缀?参数1&amp;参数2&amp;参数3......&amp;参数n
+eg:mg.do?aa&amp;bb&amp;cc&amp;dd</p>
+
+<h3>
+<a id="2关于实体vo中的5个对象userrolefunctionuserrolerolefunction的说明" class="anchor" href="#2%E5%85%B3%E4%BA%8E%E5%AE%9E%E4%BD%93vo%E4%B8%AD%E7%9A%845%E4%B8%AA%E5%AF%B9%E8%B1%A1userrolefunctionuserrolerolefunction%E7%9A%84%E8%AF%B4%E6%98%8E" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.关于实体vo中的5个对象User,Role,Function,UserRole,RoleFunction的说明</h3>
+
+<p>2.1User对象中要有getRoleList函数，返回List集合。<br>
+2.2Role对象中要有getFunList函数，返回List集合。<br>
+2.3Function对象中要有getResource函数，返回值String。<br>
+2.4Function对象中要有getStffix函数，返回值String。<br>
+2.5Funciton对象中要有getParams函数，返回值String。<br></p>
+
+<h3>
+<a id="3需要修改配置文件urlcheckjarproperties文件中信息" class="anchor" href="#3%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6urlcheckjarproperties%E6%96%87%E4%BB%B6%E4%B8%AD%E4%BF%A1%E6%81%AF" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.需要修改配置文件urlcheckjar.properties文件中信息</h3>
+
+<h1>
+<a id="设置自己系统中用到的userrolefunction" class="anchor" href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%94%A8%E5%88%B0%E7%9A%84userrolefunction" aria-hidden="true"><span class="octicon octicon-link"></span></a>设置自己系统中用到的User,Role,Function<br>
+</h1>
+
+<p>user_class = org.mgang.urlcheck.vo.User<br>
+role_class = org.mgang.urlcheck.vo.Role<br>
+function_class = org.mgang.urlcheck.vo.Function<br>
+function_method_getResource = getResource<br>
+function_method_getStuffix = getStuffix<br>
+function_method_getParams = getParams<br></p>
+
+<h3>
+<a id="4test中的单元测试已经通过" class="anchor" href="#4test%E4%B8%AD%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%B7%B2%E7%BB%8F%E9%80%9A%E8%BF%87" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.test中的单元测试，已经通过</h3>
+
+<h3>
+<a id="5将checkfunctiontag升级为jsp自定义函数方便在web的jsp中使用" class="anchor" href="#5%E5%B0%86checkfunctiontag%E5%8D%87%E7%BA%A7%E4%B8%BAjsp%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E6%96%B9%E4%BE%BF%E5%9C%A8web%E7%9A%84jsp%E4%B8%AD%E4%BD%BF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.将CheckFunctionTag升级为jsp自定义函数，方便在web的jsp中使用。</h3>
+
+<p>一般是结合EL表达式使用，还有jstl的c:if标签。例子如下：<br></p>
+
+<h2>
+<a id="50需要修改tld文件中的部分配置结合自己的项目的目录结构做调整" class="anchor" href="#50%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9tld%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E9%83%A8%E5%88%86%E9%85%8D%E7%BD%AE%E7%BB%93%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%81%9A%E8%B0%83%E6%95%B4" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.0需要修改tld文件中的部分配置，结合自己的项目的目录结构做调整<br>
+</h2>
+
+<pre>
+    &lt;short-name&gt;mg&lt;/short-name&gt;
+    &lt;uri&gt;http://room.mgang.com/checkFunction&lt;/uri&gt;
+    &lt;function&gt;
+        &lt;!--EL页面调用名字--&gt;
+        &lt;name&gt;check&lt;/name&gt;
+        &lt;!--指定标签的处理类，指定了标签由哪个Java类来处理。--&gt;
+        &lt;function-class&gt;org.mgang.urlcheck.core.CheckFunctionTag&lt;/function-class&gt;
+        &lt;!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径--&gt;
+        &lt;function-signature&gt;java.lang.Boolean checkFunctionByUser(org.mgang.urlcheck.vo.User,java.lang.String)&lt;/function-signature&gt;
+    &lt;/function&gt;
+</pre>
+
+<hr>
+
+<p><br>
+5.1首先将CheckFunctionTag.tld描述文件放到WEB-INF/下，然后在jsp中加入声明。<br>
+&lt;%@ taglib prefix="mg" uri="<a href="http://room.mgang.com/checkFunction">http://room.mgang.com/checkFunction</a>" %&gt;<br></p>
+
+<p>5.2配合EL使用：
+<br>
+&lt;c:if test="${mg:check(loginUser,'function.do?toUpdateFunctionUI&amp;funId') }"&gt;<br>
+    &lt;a title="修改权限" href="${pageContext.request.contextPath}/function.do?action=toUpdateFunctionUI&amp;funId=${fun.funId}"<br>
+        onclick="return confirm('您真的要修改该权限吗？')"&gt;&lt;i class="cus-lock_edit"&gt;&lt;/i&gt;&lt;/a&gt;<br>
+&lt;/c:if&gt;</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mg0324/urlcheckjar">Urlcheckjar</a> is maintained by <a href="https://github.com/mg0324">mg0324</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
