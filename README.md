@@ -13,7 +13,6 @@ eg:mg.do?aa&bb&cc&dd
 2.5Funciton对象中要有getParams函数，返回值String。<br/>
 
 ###3.需要修改配置文件urlcheckjar.properties文件中信息
-<code>
 #设置自己系统中用到的User,Role,Function<br/>
 user_class = org.mgang.urlcheck.vo.User<br/>
 role_class = org.mgang.urlcheck.vo.Role<br/>
@@ -21,7 +20,7 @@ function_class = org.mgang.urlcheck.vo.Function<br/>
 function_method_getResource = getResource<br/>
 function_method_getStuffix = getStuffix<br/>
 function_method_getParams = getParams<br/>
-</code>
+
 
 ###4.test中的单元测试，已经通过
 
@@ -31,9 +30,8 @@ function_method_getParams = getParams<br/>
 <%@ taglib prefix="mg" uri="http://room.mgang.com/checkFunction" %><br/>
 
 5.2配合EL使用：
-<code><br/>
+<br/>
 &lt;c:if test="${mg:check(loginUser,'function.do?toUpdateFunctionUI&funId') }"&gt;<br/>
 	&lt;a title="修改权限" href="${pageContext.request.contextPath}/function.do?action=toUpdateFunctionUI&funId=${fun.funId}"<br/>
 		onclick="return confirm('您真的要修改该权限吗？')"&gt;&lt;i class="cus-lock_edit"&gt;&lt;/i&gt;&lt;/a&gt;<br/>
 &lt;/c:if&gt;
-</code>
