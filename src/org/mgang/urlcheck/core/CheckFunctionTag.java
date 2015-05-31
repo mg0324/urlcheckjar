@@ -73,57 +73,64 @@ public class CheckFunctionTag {
 		int count = 1;
 		//先匹配resource
 		String resource = (String)getResourceMethod.invoke(fun, null);
-		System.out.println("resource:"+resource);
+		System.out.println("fun resource:"+resource);
+		System.out.println("req resource:"+getResourceFromReqUrl(reqUrl));
 		if(getResourceFromReqUrl(reqUrl).equals(resource)){
 			//resource匹配成功
 			count ++;
-			//匹配后缀
+			System.out.println(resource + "资源匹配成功");
+		}
+		//匹配后缀
+		if(count == 2){
 			String stuffix = (String)getStuffixMethod.invoke(fun, null);
-			System.out.println("stuffix:"+stuffix);
-			if(getStuffixFromReqUrl(reqUrl).equals(stuffix)){
-				//匹配后缀成功
+			System.out.println("fun stuffix:"+stuffix);
+			if(getStuffixFromReqUrl(reqUrl) == null){
 				count ++;
-				//请求资源加起来匹配
-				if(reqUrl.contains(resource+stuffix)){
+				System.out.println(reqUrl+"无后缀");
+			}else{
+				if(getStuffixFromReqUrl(reqUrl).equals(stuffix)){
+					//匹配后缀成功
 					count ++;
-				}
-				if(count == 4){
-					//匹配参数
-					//System.out.println("reqUrl:"+reqUrl+"-fun:"+fun.getParams());
-					//function.do?toUpdateFunctionUI&funId&xx&yy没有问号，就说明无参数
-					if(reqUrl.contains("?")){
-						String pReqUrl = reqUrl.substring(reqUrl.indexOf('?')+1,reqUrl.length());
-						String[] p_req_url = pReqUrl.split("&");
-						int urlParamLen = p_req_url.length;
-						//判断参数个数是否相同
-						String params_str = (String) getParamsMethod.invoke(fun, null);
-						String[] p_fun = params_str.split(",");
-						System.out.println("fun中的参数："+params_str);
-						System.out.println("reqUrl中的参数："+pReqUrl);
-						System.out.println("urlParamLen:"+urlParamLen);
-						if(p_fun.length == urlParamLen){
-							//得到reqUrl中的参数 和 fun中的匹配，精确匹配
-							int pcount = 0;
-							for(String p : p_fun){
-								pcount = findParamInStringArray(p, p_req_url,pcount);
-							}
-							System.out.println("pcount:"+pcount);
-							if(pcount == urlParamLen){
-								b = true;
-							}else{
-								b = false;
-							}
-						}else{
-							b = false;
-						}
-					}else{
-						b = false;
-					}
+					System.out.println(stuffix + "后缀匹配成功");
 				}
 			}
 		}
+		//匹配参数
+		if(count == 3){
+			//System.out.println("reqUrl:"+reqUrl+"-fun:"+fun.getParams());
+			//function.do?toUpdateFunctionUI&funId&xx&yy没有问号，就说明无参数
+			if(reqUrl.contains("?")){
+				String pReqUrl = reqUrl.substring(reqUrl.indexOf('?')+1,reqUrl.length());
+				String[] p_req_url = pReqUrl.split("&");
+				int urlParamLen = p_req_url.length;
+				//判断参数个数是否相同
+				String params_str = (String) getParamsMethod.invoke(fun, null);
+				String[] p_fun = params_str.split(",");
+				System.out.println("fun中的参数："+params_str);
+				System.out.println("reqUrl中的参数："+pReqUrl);
+				System.out.println("urlParamLen:"+urlParamLen);
+				if(p_fun.length == urlParamLen){
+					//得到reqUrl中的参数 和 fun中的匹配，精确匹配
+					int pcount = 0;
+					for(String p : p_fun){
+						pcount = findParamInStringArray(p, p_req_url,pcount);
+					}
+					System.out.println("pcount:"+pcount);
+					if(pcount == urlParamLen){
+						b = true;
+					}else{
+						b = false;
+					}
+				}else{
+					b = false;
+				}
+			}else{
+				b = true;
+			}
+		}
+		
 		System.out.println("count:"+count+"---b:"+b);
-		if(count == 4 && b){
+		if(count == 3 && b){
 			return true;
 		}else{
 			return false;
@@ -146,8 +153,13 @@ public class CheckFunctionTag {
 	private static String getResourceFromReqUrl(String reqUrl){
 		//加强严谨性
 		if(reqUrl.contains("?")){
-			String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
-			return allResource.substring(0,allResource.indexOf("."));
+			if(reqUrl.contains(".")){
+				//有后缀
+				String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
+				return allResource.substring(0,allResource.indexOf("."));
+			}else{
+				return reqUrl.substring(0,reqUrl.indexOf("?"));
+			}
 		}else{
 			if(reqUrl.contains(".")){
 				//有后缀
@@ -167,7 +179,12 @@ public class CheckFunctionTag {
 	private static String getStuffixFromReqUrl(String reqUrl){
 		if(reqUrl.contains("?")){
 			String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
-			return allResource.substring(allResource.indexOf("."),allResource.length());
+			if(reqUrl.contains(".")){
+				//有后缀
+				return allResource.substring(reqUrl.indexOf("."),allResource.length());
+			}else{
+				return null;
+			}
 		}else{
 			if(reqUrl.contains(".")){
 				//有后缀

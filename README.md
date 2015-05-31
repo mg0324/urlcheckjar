@@ -29,6 +29,22 @@ function_method_getParams = getParams<br/>
 
 ###5.将CheckFunctionTag升级为jsp自定义函数，方便在web的jsp中使用。
 一般是结合EL表达式使用，还有jstl的c:if标签。例子如下：<br/>
+5.0需要修改tld文件中的部分配置，结合自己的项目的目录结构做调整<br/>
+---------------------------------------------------------------------------------------
+<pre>
+	&lt;short-name&gt;mg&lt;/short-name&gt;
+	&lt;uri&gt;http://room.mgang.com/checkFunction&lt;/uri&gt;
+	&lt;function&gt;
+		&lt;!--EL页面调用名字--&gt;
+		&lt;name&gt;check&lt;/name&gt;
+		&lt;!--指定标签的处理类，指定了标签由哪个Java类来处理。--&gt;
+		&lt;function-class&gt;org.mgang.urlcheck.core.CheckFunctionTag&lt;/function-class&gt;
+		&lt;!--指定EL页面调用名字中实际调用的方法.指定处理类的实际方法.参数和回调函数要写完整路径--&gt;
+		&lt;function-signature&gt;java.lang.Boolean checkFunctionByUser(org.mgang.urlcheck.vo.User,java.lang.String)&lt;/function-signature&gt;
+	&lt;/function&gt;
+</pre>
+---------------------------------------------------------------------------------------
+<br/>
 5.1首先将CheckFunctionTag.tld描述文件放到WEB-INF/下，然后在jsp中加入声明。<br/>
 <%@ taglib prefix="mg" uri="http://room.mgang.com/checkFunction" %><br/>
 
