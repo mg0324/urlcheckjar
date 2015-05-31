@@ -69,7 +69,7 @@ public class CheckFunctionTag {
 		Method getResourceMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getResource"), null);
 		Method getStuffixMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getStuffix"), null);
 		Method getParamsMethod = functionClass.getMethod(UrlCheckJarConfig.get("function_method_getParams"), null);
-		boolean b = false;
+		boolean b = true;
 		int count = 1;
 		//先匹配resource
 		String resource = (String)getResourceMethod.invoke(fun, null);
@@ -90,7 +90,7 @@ public class CheckFunctionTag {
 				if(count == 4){
 					//匹配参数
 					//System.out.println("reqUrl:"+reqUrl+"-fun:"+fun.getParams());
-					//function.do?toUpdateFunctionUI&funId&xx&yy
+					//function.do?toUpdateFunctionUI&funId&xx&yy没有问号，就说明无参数
 					if(reqUrl.contains("?")){
 						String pReqUrl = reqUrl.substring(reqUrl.indexOf('?')+1,reqUrl.length());
 						String[] p_req_url = pReqUrl.split("&");
@@ -116,6 +116,8 @@ public class CheckFunctionTag {
 						}else{
 							b = false;
 						}
+					}else{
+						b = false;
 					}
 				}
 			}
@@ -142,8 +144,20 @@ public class CheckFunctionTag {
 	 * @return
 	 */
 	private static String getResourceFromReqUrl(String reqUrl){
-		String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
-		return allResource.substring(0,allResource.indexOf("."));
+		//加强严谨性
+		if(reqUrl.contains("?")){
+			String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
+			return allResource.substring(0,allResource.indexOf("."));
+		}else{
+			if(reqUrl.contains(".")){
+				//有后缀
+				return reqUrl.substring(0,reqUrl.indexOf("."));
+			}else{
+				return reqUrl;
+			}
+		}
+		
+		
 	}
 	/**
 	 * 从reqUrl中得到后缀
@@ -151,7 +165,18 @@ public class CheckFunctionTag {
 	 * @return
 	 */
 	private static String getStuffixFromReqUrl(String reqUrl){
-		String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
-		return allResource.substring(allResource.indexOf("."),allResource.length());
+		if(reqUrl.contains("?")){
+			String allResource = reqUrl.substring(0,reqUrl.indexOf("?"));
+			return allResource.substring(allResource.indexOf("."),allResource.length());
+		}else{
+			if(reqUrl.contains(".")){
+				//有后缀
+				return reqUrl.substring(reqUrl.indexOf("."),reqUrl.length());
+			}else{
+				return null;
+			}
+		}
+		
+		
 	}
 }

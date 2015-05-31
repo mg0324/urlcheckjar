@@ -1,6 +1,9 @@
 # urlcheckjar
 封装url权限匹配解决方案为通用的框架
 
+###0.说明
+该jar包可以完成url权限匹配，demo的urlcheck在http://mg0324.github.io/urlcheck/。
+
 ###1.传入url格式定义
 资源.后缀?参数1&参数2&参数3......&参数n
 eg:mg.do?aa&bb&cc&dd

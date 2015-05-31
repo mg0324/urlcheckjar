@@ -25,7 +25,7 @@ public class TestCheck {
 		List<Role> lr = new ArrayList<Role>();
 		lr.add(role);
 		user.setRoleList(lr);
-		String url = "mg.do?todo&aa&bb&cc";
+		String url = "mgx";
 		boolean res = CheckFunctionTag.checkFunctionByUser(user, url);
 		System.out.println(res);
 	}
